@@ -6,15 +6,15 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 export default function Home() {
   const [viewport, setViewport] = useState({
-    width: 400,
-    height: 400,
-    latitude: 37.7577,
-    longitude: -122.4376,
-    zoom: 8,
+    width: '100vw',
+    height: '100vh',
+    latitude: 54.6872,
+    longitude: 25.2797,
+    zoom: 7,
   });
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Create Next App</title>
         <link rel='icon' href='/favicon.ico' />
@@ -22,6 +22,7 @@ export default function Home() {
 
       <ReactMapGL
         {...viewport}
+        // className={styles.map}
         mapboxApiAccessToken='pk.eyJ1IjoiZGhydXZiaGF0bmFnYXIxMCIsImEiOiJja2c3dmx6ZWowMmVmMnRtcWVkaWRlMjAzIn0.j_CTYHulY0ohTDABdHLr2g'
         onViewportChange={(nextViewport) => setViewport(nextViewport)}
       />
