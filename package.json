@@ -9,6 +9,7 @@
     "commit": "git cz"
   },
   "dependencies": {
+    "@turf/length": "^6.3.0",
     "git-cz": "^4.7.6",
     "next": "10.0.5",
     "react": "17.0.1",
