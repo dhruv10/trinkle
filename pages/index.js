@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head'
 import length from '@turf/length';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import ReactMapGL, { Source, Layer } from 'react-map-gl';
 
 // styles
@@ -16,8 +16,10 @@ import {
   measureLineLayer,
   measurePointLayer,
 } from '../lib/constants';
+import { cIncrement } from '../store/actions/counter';
 
 function App() {
+  // const dispatch = useDispatch();
   const mapRef = React.useRef(null);
 
   const [totalDistance, setTotalDistance] = React.useState('0.969');
@@ -28,6 +30,10 @@ function App() {
     latitude: 54.6872,
     zoom: 14,
   });
+
+  // React.useEffect(() => {
+  //   dispatch(cIncrement())
+  // }, [])
 
   const onMapClicked = (e) => {
     let localGeojson = geojson;

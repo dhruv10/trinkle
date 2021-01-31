@@ -1,27 +1,22 @@
-import App, {Container} from "next/app";
-import { createStore } from 'redux';
+import App from 'next/app';
+import withRedux, { createWrapper } from 'next-redux-wrapper';
 import { Provider } from 'react-redux';
-import withRedux from "next-redux-wrapper";
+import store from '../store'
 
 import '../styles/globals.css';
 
-const reducer = (state = {foo: ''}, action) => {
-  switch (action.type) {
-      case 'FOO':
-          return {...state, foo: action.payload};
-      default:
-          return state
+class MyApp extends App {
+  render() {
+    const { Component, pageProps } = this.props;
+    return (
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>
+    );
   }
-};
-
-const makeStore = (initialState, options) => {
-  return createStore(reducer, initialState);
-};
-
-function MyApp({ Component, pageProps }) {
-  
-
-  return <Component {...pageProps} />;
 }
 
-export default MyApp;
+const makestore = () => store;
+const wrapper = createWrapper(makestore);
+
+export default wrapper.withRedux(MyApp);
