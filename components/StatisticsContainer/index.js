@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const StatisticsContainer = ({ styles, totalDistance }) => {
   return (
     <div className={styles.container}>
@@ -10,6 +12,9 @@ const StatisticsContainer = ({ styles, totalDistance }) => {
       <p className={styles.text}>
         is the total distance between all selected points on the map!
       </p>
+
+      <br />
+      <Link href='/about'>Know More &rarr;</Link>
     </div>
   );
 };

@@ -11,7 +11,7 @@ export default function About() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Trinkle!</a>
+          Welcome to <a href="#">Trinkle!</a>
         </h1>
 
         <p className={styles.description}>
@@ -20,7 +20,7 @@ export default function About() {
         </p>
 
         <div className={styles.grid}>
-          <a href="#" className={styles.card}>
+          <a href="/" className={styles.card}>
             <h3>What &rarr;</h3>
             <p>A geospatial distance measurement app.</p>
           </a>
@@ -32,6 +32,7 @@ export default function About() {
 
           <a
             href="https://github.com/dhruv10"
+            target="_blank"
             className={styles.card}
           >
             <h3>Where &rarr;</h3>

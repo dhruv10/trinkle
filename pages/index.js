@@ -1,7 +1,8 @@
 import React from 'react';
+import Head from 'next/head'
+import length from '@turf/length';
 import { connect } from 'react-redux';
 import ReactMapGL, { Source, Layer } from 'react-map-gl';
-import length from '@turf/length';
 
 // styles
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -34,8 +35,6 @@ function App() {
     const features = mapRef.current.queryRenderedFeatures(e.point, {
       layers: ['measure-points'],
     });
-
-    console.log(geojson)
 
     if (localGeojson.features.length > 1) {
       setGeojson((old) => ({
@@ -84,6 +83,10 @@ function App() {
 
   return (
     <>
+      <Head>
+        <title>Trinkle</title>
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
       <StatisticsContainer styles={styles} totalDistance={totalDistance} />
       <ReactMapGL
         ref={mapRef}
