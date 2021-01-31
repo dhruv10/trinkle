@@ -8,14 +8,41 @@
     top: 10px;
     left: 10px;
     z-index: 10;
-    height: 300px;
-    width: 400px;
+    width: 300px;
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
     font-size: 11px;
     line-height: 18px;
     display: block;
     margin: 0;
-    padding: 5px 10px;
+    padding: 20px;
     border-radius: 4px;
+}
+
+.title {
+    font-size: 32px;
+    margin: 10px 0;
+    font-weight: 700;
+    text-align: center;
+    color: #00B0FF;
+}
+
+.subtitle {
+    font-size: 16px;
+    margin: 20px 0;
+    font-weight: 500;
+    text-align: center;
+    color: #cbcbcb;
+}
+
+.distance {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.text {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
 }
