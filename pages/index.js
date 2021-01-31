@@ -19,12 +19,12 @@ import {
 function App() {
   const mapRef = React.useRef(null);
 
-  const [totalDistance, setTotalDistance] = React.useState('');
+  const [totalDistance, setTotalDistance] = React.useState('0.969');
   const [geojson, setGeojson] = React.useState(GEOJSON);
   const [linestring, setLinestring] = React.useState(LINESTRING);
   const [viewport, setViewport] = React.useState({
-    longitude: -122.45,
-    latitude: 37.78,
+    longitude: 25.2797,
+    latitude: 54.6872,
     zoom: 14,
   });
 
@@ -34,6 +34,8 @@ function App() {
     const features = mapRef.current.queryRenderedFeatures(e.point, {
       layers: ['measure-points'],
     });
+
+    console.log(geojson)
 
     if (localGeojson.features.length > 1) {
       setGeojson((old) => ({
