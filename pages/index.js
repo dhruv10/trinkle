@@ -1,57 +1,25 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import ReactMapGL, { Source, Layer } from 'react-map-gl';
 import length from '@turf/length';
-import Head from 'next/head';
 
 // styles
 import 'mapbox-gl/dist/mapbox-gl.css';
 import styles from '../styles/Home.module.css';
+import StatisticsContainer from '../components/StatisticsContainer';
 
-const MAPBOX_TOKEN =
-  'pk.eyJ1IjoiZGhydXZiaGF0bmFnYXIxMCIsImEiOiJja2c3dmx6ZWowMmVmMnRtcWVkaWRlMjAzIn0.j_CTYHulY0ohTDABdHLr2g';
-
-const GEOJSON = {
-  type: 'FeatureCollection',
-  features: [],
-};
-
-const LINESTRING = {
-  type: 'Feature',
-  geometry: {
-    type: 'LineString',
-    coordinates: [],
-  },
-};
-
-const measurePointLayer = {
-  id: 'measure-points',
-  type: 'circle',
-  source: 'geojson',
-  paint: {
-    'circle-radius': 5,
-    'circle-color': '#000',
-  },
-  filter: ['in', '$type', 'Point'],
-};
-
-const measureLineLayer = {
-  id: 'measure-lines',
-  type: 'line',
-  source: 'geojson',
-  layout: {
-    'line-cap': 'round',
-    'line-join': 'round',
-  },
-  paint: {
-    'line-color': '#000',
-    'line-width': 2.5,
-  },
-  filter: ['in', '$type', 'LineString'],
-};
+import {
+  GEOJSON,
+  LINESTRING,
+  MAPBOX_TOKEN,
+  measureLineLayer,
+  measurePointLayer,
+} from '../lib/constants';
 
 function App() {
   const mapRef = React.useRef(null);
 
+  const [totalDistance, setTotalDistance] = React.useState('');
   const [geojson, setGeojson] = React.useState(GEOJSON);
   const [linestring, setLinestring] = React.useState(LINESTRING);
   const [viewport, setViewport] = React.useState({
@@ -67,15 +35,11 @@ function App() {
       layers: ['measure-points'],
     });
 
-    console.log(localGeojson);
-
     if (localGeojson.features.length > 1) {
       setGeojson((old) => ({
         ...old,
         features: old.features.pop(),
       }));
-      //   localGeojson.features.pop();
-      console.log(localGeojson);
     }
 
     if (features.length) {
@@ -85,11 +49,6 @@ function App() {
       );
 
       localGeojson.features = tempFeatures;
-
-      //   setGeojson((old) => ({
-      //     ...old,
-      //     features: tempFeatures,
-      //   }));
     } else {
       const point = {
         type: 'Feature',
@@ -102,10 +61,6 @@ function App() {
         },
       };
 
-      //   setGeojson((old) => ({
-      //     ...old,
-      //     features: [...old.features, point],
-      //   }));
       localGeojson.features.push(point);
     }
 
@@ -115,45 +70,34 @@ function App() {
       );
 
       localLineString.geometry.coordinates = tempCords;
-
-      //   setLinestring((old) => ({
-      //     ...old,
-      //     geometry: {
-      //       ...old.geometry,
-      //       coordinates: tempCords,
-      //     },
-      //   }));
-
       localGeojson.features.push(localLineString);
 
-      //   setGeojson((old) => ({
-      //     ...old,
-      //     features: [...old.features, linestring],
-      //   }));
-
-      console.log('Distance: ', length(localLineString).toLocaleString());
+      const localTotalDistance = length(localLineString).toLocaleString();
+      setTotalDistance(localTotalDistance);
     }
 
-    // console.log(features);
     setGeojson(localGeojson);
     setLinestring(localLineString);
   };
 
   return (
-    <ReactMapGL
-      ref={mapRef}
-      mapboxApiAccessToken={MAPBOX_TOKEN}
-      {...viewport}
-      width='100vw'
-      height='100vh'
-      onViewportChange={setViewport}
-      onClick={onMapClicked}
-    >
-      <Source id='geojson' type='geojson' data={geojson}>
-        <Layer {...measurePointLayer} />
-        <Layer {...measureLineLayer} />
-      </Source>
-    </ReactMapGL>
+    <>
+      <StatisticsContainer styles={styles} totalDistance={totalDistance} />
+      <ReactMapGL
+        ref={mapRef}
+        {...viewport}
+        width='100vw'
+        height='100vh'
+        onClick={onMapClicked}
+        onViewportChange={setViewport}
+        mapboxApiAccessToken={MAPBOX_TOKEN}
+      >
+        <Source id='geojson' type='geojson' data={geojson}>
+          <Layer {...measurePointLayer} />
+          <Layer {...measureLineLayer} />
+        </Source>
+      </ReactMapGL>
+    </>
   );
 }
 
