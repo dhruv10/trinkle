@@ -1,14 +1,18 @@
 import React from 'react';
-import Head from 'next/head'
+import Head from 'next/head';
 import length from '@turf/length';
-import { connect, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ReactMapGL, { Source, Layer } from 'react-map-gl';
+import { updateDistance } from '../store/actions/distance';
+
+// components
+import StatisticsContainer from '../components/StatisticsContainer';
 
 // styles
 import 'mapbox-gl/dist/mapbox-gl.css';
 import styles from '../styles/Home.module.css';
-import StatisticsContainer from '../components/StatisticsContainer';
 
+// lib
 import {
   GEOJSON,
   LINESTRING,
@@ -16,13 +20,12 @@ import {
   measureLineLayer,
   measurePointLayer,
 } from '../lib/constants';
-import { cIncrement } from '../store/actions/counter';
 
 function App() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const mapRef = React.useRef(null);
+  const { distance } = useSelector((state) => state.distance);
 
-  const [totalDistance, setTotalDistance] = React.useState('0.969');
   const [geojson, setGeojson] = React.useState(GEOJSON);
   const [linestring, setLinestring] = React.useState(LINESTRING);
   const [viewport, setViewport] = React.useState({
@@ -31,13 +34,9 @@ function App() {
     zoom: 14,
   });
 
-  // React.useEffect(() => {
-  //   dispatch(cIncrement())
-  // }, [])
-
   const onMapClicked = (e) => {
-    let localGeojson = geojson;
-    let localLineString = linestring;
+    const localGeojson = geojson;
+    const localLineString = linestring;
     const features = mapRef.current.queryRenderedFeatures(e.point, {
       layers: ['measure-points'],
     });
@@ -79,8 +78,10 @@ function App() {
       localLineString.geometry.coordinates = tempCords;
       localGeojson.features.push(localLineString);
 
-      const localTotalDistance = length(localLineString).toLocaleString();
-      setTotalDistance(localTotalDistance);
+      const localTotalDistance = Number(
+        length(localLineString).toLocaleString()
+      );
+      dispatch(updateDistance(localTotalDistance));
     }
 
     setGeojson(localGeojson);
@@ -93,7 +94,7 @@ function App() {
         <title>Trinkle</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <StatisticsContainer styles={styles} totalDistance={totalDistance} />
+      <StatisticsContainer styles={styles} totalDistance={distance} />
       <ReactMapGL
         ref={mapRef}
         {...viewport}

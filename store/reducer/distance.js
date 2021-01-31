@@ -1,19 +1,15 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  count: 0,
+  distance: 0.969,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.COUNTER_INCRIMENT:
+    case actionTypes.UPDATE_TOTAL_DISTANCE:
+      console.log(state.distance, action.payload);
       return {
-        count: state.count + 1,
-      };
-
-    case actionTypes.COUNTER_DECRIMENT:
-      return {
-        count: state.count - 1,
+        distance: action.payload,
       };
 
     default:
