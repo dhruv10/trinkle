@@ -1,34 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Trinkle
+A geospatial distance measurement app. 
 
-## Getting Started
+It is live at https://trinkle.vercel.app/
 
-First, run the development server:
+We can click at a position on map to mark points and measure the total distance between them. 
+Clicking twice on a point removes it from the map.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+![image](https://user-images.githubusercontent.com/32517802/106402878-c24eba00-6451-11eb-8dae-e11c7b42ce28.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+![image](https://user-images.githubusercontent.com/32517802/106402823-7ac82e00-6451-11eb-8c92-a33c1528b9b5.png)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## ***Steps to run the project locally*** <a name = "run_locally"></a>
 
-## Learn More
+1. Fork and clone the repository in your system and navigate to the project directory.
+2. Setup an ```.env.local``` file in root of the project with ```NEXT_PUBLIC_MAPBOX_TOKEN``` and provide your mapbox token.
+3. Install all the project dependencies using ```npm install``` command.
+4. Run ```npm start``` to start the local server. Open ```http://localhost:3000``` to view the project in the browser.
+## ***Built Using*** <a name = "built_using"></a>
 
-To learn more about Next.js, take a look at the following resources:
+-   [React JS](https://reactjs.org/) - A JavaScript library for building user interfaces
+-   [Mapbox GL JS](https://www.mapbox.com/) - A JavaScript library that uses WebGL to render interactive maps
+-   [Next.js](https://nextjs.org/) - The React Framework for Production
+-   [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) - App for deploying NextJS app
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ***Challenges Faced:***
+ * Setting up Redux with NextJS
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## ***Bonus Points***
+ * Developed using NextJS. Followed component architecture, DRY, separation of concerns and other best practices.
+ * Project is mobile responsive.
 
-## Deploy on Vercel
+## ***Light House Score***
+ A very decent lighthouse score
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![image](https://user-images.githubusercontent.com/32517802/106403025-751f1800-6452-11eb-9b81-d87bab27d79f.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## ***Author*** <a name = "author"></a>
+
+-   [@dhruv10](https://github.com/dhruv10)
